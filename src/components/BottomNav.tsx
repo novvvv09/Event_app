@@ -1,14 +1,15 @@
-import { Home, Calendar, FolderKanban, Award } from 'lucide-react';
+import { Home, Calendar, User, FolderKanban, Award } from 'lucide-react';
 
 interface BottomNavProps {
-  currentScreen: 'dashboard' | 'events' | 'projects' | 'certificates';
-  onNavigate: (screen: 'dashboard' | 'events' | 'projects' | 'certificates') => void;
+  currentScreen: 'dashboard' | 'events' | 'profile' | 'projects' | 'certificates';
+  onNavigate: (screen: 'dashboard' | 'events' | 'profile' | 'projects' | 'certificates') => void;
 }
 
 export function BottomNav({ currentScreen, onNavigate }: BottomNavProps) {
   const navItems = [
     { id: 'dashboard' as const, icon: Home, label: 'Home' },
     { id: 'events' as const, icon: Calendar, label: 'Events' },
+    { id: 'profile' as const, icon: User, label: 'Profile' },
     { id: 'projects' as const, icon: FolderKanban, label: 'Projects' },
     { id: 'certificates' as const, icon: Award, label: 'Certs' },
   ];

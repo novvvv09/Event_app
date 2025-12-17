@@ -3,10 +3,11 @@ import { DashboardScreen } from './components/DashboardScreen';
 import { EventsScreen } from './components/EventsScreen';
 import { ProjectsScreen } from './components/ProjectsScreen';
 import { CertificatesScreen } from './components/CertificatesScreen';
+import { ProfileScreen } from './components/ProfileScreen';
 import { BottomNav } from './components/BottomNav';
 
 export default function App() {
-  const [currentScreen, setCurrentScreen] = useState<'dashboard' | 'events' | 'projects' | 'certificates'>('dashboard');
+  const [currentScreen, setCurrentScreen] = useState<'dashboard' | 'events' | 'profile' | 'projects' | 'certificates'>('dashboard');
 
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
@@ -19,6 +20,7 @@ export default function App() {
         <div className="h-[812px] overflow-y-auto bg-gradient-to-b from-blue-50 to-white">
           {currentScreen === 'dashboard' && <DashboardScreen onNavigate={setCurrentScreen} />}
           {currentScreen === 'events' && <EventsScreen />}
+          {currentScreen === 'profile' && <ProfileScreen />}
           {currentScreen === 'projects' && <ProjectsScreen />}
           {currentScreen === 'certificates' && <CertificatesScreen />}
           
