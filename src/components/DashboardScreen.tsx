@@ -1,5 +1,5 @@
 import { Clock, MapPin, Users, ChevronRight, Code2, Bell, ChevronLeft } from 'lucide-react';
-import logo from 'figma:asset/52127bb3adc8c45b1db277c71e7d087b956c8577.png';
+import logo from 'figma:asset/51103e823abea49baaaa6b5e0a0f4a3f191864e3.png';
 import { useState, useEffect } from 'react';
 
 interface DashboardScreenProps {
@@ -70,7 +70,7 @@ export function DashboardScreen({ onNavigate }: DashboardScreenProps) {
           <img 
             src={logo} 
             alt="SkillLink Logo" 
-            className="w-12 h-12 rounded-2xl shadow-lg"
+            className="w-12 h-12 rounded-full object-cover shadow-lg"
           />
           <div>
             <h1 className="text-gray-900">CS Student Hub</h1>

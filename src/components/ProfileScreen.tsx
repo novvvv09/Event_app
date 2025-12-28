@@ -1,5 +1,5 @@
 import { User, Mail, Phone, MapPin, Calendar, Award, Code2, Edit2, LogOut } from 'lucide-react';
-import logo from 'figma:asset/52127bb3adc8c45b1db277c71e7d087b956c8577.png';
+import logo from 'figma:asset/51103e823abea49baaaa6b5e0a0f4a3f191864e3.png';
 
 export function ProfileScreen() {
   const handleLogout = () => {
