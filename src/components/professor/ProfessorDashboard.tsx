@@ -2,7 +2,7 @@ import { Calendar, Users, Plus, Bell, ChevronRight, Clock, MapPin } from 'lucide
 import logo from 'figma:asset/51103e823abea49baaaa6b5e0a0f4a3f191864e3.png';
 
 interface ProfessorDashboardProps {
-  onNavigate: (screen: 'dashboard' | 'events' | 'create-event' | 'profile') => void;
+  onNavigate: (screen: 'dashboard' | 'events' | 'create-event' | 'profile' | 'notifications') => void;
   onViewEvent: (eventId: number) => void;
 }
 
@@ -44,7 +44,10 @@ export function ProfessorDashboard({ onNavigate, onViewEvent }: ProfessorDashboa
             <h1 className="text-gray-900">Professor Portal</h1>
           </div>
         </div>
-        <button className="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center hover:bg-purple-200 transition-colors relative">
+        <button 
+          onClick={() => onNavigate('notifications')}
+          className="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center hover:bg-purple-200 transition-colors relative"
+        >
           <Bell className="w-5 h-5 text-purple-600" />
           <div className="absolute top-1 right-1 w-2.5 h-2.5 bg-red-500 rounded-full border-2 border-white"></div>
         </button>

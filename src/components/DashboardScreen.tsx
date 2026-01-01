@@ -3,7 +3,7 @@ import logo from 'figma:asset/51103e823abea49baaaa6b5e0a0f4a3f191864e3.png';
 import { useState, useEffect } from 'react';
 
 interface DashboardScreenProps {
-  onNavigate: (screen: 'dashboard' | 'events' | 'profile' | 'projects' | 'certificates') => void;
+  onNavigate: (screen: 'dashboard' | 'events' | 'profile' | 'projects' | 'certificates' | 'notifications') => void;
 }
 
 export function DashboardScreen({ onNavigate }: DashboardScreenProps) {
@@ -77,7 +77,7 @@ export function DashboardScreen({ onNavigate }: DashboardScreenProps) {
           </div>
         </div>
         <button 
-          onClick={() => setShowNotification(!showNotification)}
+          onClick={() => onNavigate('notifications')}
           className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center hover:bg-blue-200 transition-colors relative"
         >
           <Bell className="w-5 h-5 text-blue-600" />

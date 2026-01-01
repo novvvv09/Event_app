@@ -8,6 +8,8 @@ import { BottomNav } from "./components/BottomNav";
 import { SplashScreen } from "./components/SplashScreen";
 import { RoleSelectionScreen } from "./components/RoleSelectionScreen";
 import { LoginScreen } from "./components/LoginScreen";
+import { SignUpScreen } from "./components/SignUpScreen";
+import { NotificationsScreen } from "./components/NotificationsScreen";
 import { ProfessorDashboard } from "./components/professor/ProfessorDashboard";
 import { MyEventsScreen } from "./components/professor/MyEventsScreen";
 import { CreateEventScreen } from "./components/professor/CreateEventScreen";
@@ -23,18 +25,20 @@ export default function App() {
     | "profile"
     | "projects"
     | "certificates"
+    | "notifications"
   >("dashboard");
   const [showSplash, setShowSplash] = useState(true);
   const [showRoleSelection, setShowRoleSelection] =
     useState(false);
   const [showLogin, setShowLogin] = useState(false);
+  const [showSignUp, setShowSignUp] = useState(false);
   const [userRole, setUserRole] = useState<
     "student" | "professor" | null
   >(null);
 
   // Professor states
   const [professorScreen, setProfessorScreen] = useState<
-    "dashboard" | "events" | "create-event" | "profile"
+    "dashboard" | "events" | "create-event" | "profile" | "notifications"
   >("dashboard");
   const [selectedEventId, setSelectedEventId] = useState<
     number | null
@@ -53,6 +57,7 @@ export default function App() {
 
   const handleLogin = () => {
     setShowLogin(false);
+    setShowSignUp(false);
   };
 
   const handleLogout = () => {
@@ -60,6 +65,7 @@ export default function App() {
     setShowSplash(true);
     setShowRoleSelection(false);
     setShowLogin(false);
+    setShowSignUp(false);
     setCurrentScreen("dashboard");
     setProfessorScreen("dashboard");
     setSelectedEventId(null);
@@ -87,7 +93,23 @@ export default function App() {
             onSelectRole={handleRoleSelect}
           />
         ) : showLogin ? (
-          <LoginScreen role={userRole!} onLogin={handleLogin} />
+          <LoginScreen 
+            role={userRole!} 
+            onLogin={handleLogin} 
+            onSignUpClick={() => {
+              setShowLogin(false);
+              setShowSignUp(true);
+            }}
+          />
+        ) : showSignUp ? (
+          <SignUpScreen 
+            role={userRole!} 
+            onSignUp={handleLogin} 
+            onBackToLogin={() => {
+              setShowSignUp(false);
+              setShowLogin(true);
+            }}
+          />
         ) : userRole === "professor" ? (
           <>
             {/* Professor Interface */}
@@ -99,6 +121,12 @@ export default function App() {
                     setSelectedEventId(null);
                     setProfessorScreen(screen);
                   }}
+                />
+              ) : professorScreen === "notifications" ? (
+                <NotificationsScreen 
+                  role="professor" 
+                  onBack={() => setProfessorScreen("dashboard")} 
+                  onNavigate={(screen) => setProfessorScreen(screen as any)}
                 />
               ) : (
                 <>
@@ -129,10 +157,10 @@ export default function App() {
               <div className="pb-20"></div>
             </div>
 
-            {selectedEventId === null && (
+            {selectedEventId === null && professorScreen !== "notifications" && (
               <ProfessorBottomNav
-                currentScreen={professorScreen}
-                onNavigate={setProfessorScreen}
+                currentScreen={professorScreen as any}
+                onNavigate={setProfessorScreen as any}
               />
             )}
           </>
@@ -140,28 +168,40 @@ export default function App() {
           <>
             {/* Student Interface */}
             <div className="h-[812px] overflow-y-auto bg-gradient-to-b from-blue-50 to-white">
-              {currentScreen === "dashboard" && (
-                <DashboardScreen
-                  onNavigate={setCurrentScreen}
+              {currentScreen === "notifications" ? (
+                <NotificationsScreen 
+                  role="student" 
+                  onBack={() => setCurrentScreen("dashboard")} 
+                  onNavigate={(screen) => setCurrentScreen(screen as any)}
                 />
-              )}
-              {currentScreen === "events" && <EventsScreen />}
-              {currentScreen === "profile" && <ProfileScreen />}
-              {currentScreen === "projects" && (
-                <ProjectsScreen />
-              )}
-              {currentScreen === "certificates" && (
-                <CertificatesScreen />
+              ) : (
+                <>
+                  {currentScreen === "dashboard" && (
+                    <DashboardScreen
+                      onNavigate={setCurrentScreen}
+                    />
+                  )}
+                  {currentScreen === "events" && <EventsScreen />}
+                  {currentScreen === "profile" && <ProfileScreen />}
+                  {currentScreen === "projects" && (
+                    <ProjectsScreen />
+                  )}
+                  {currentScreen === "certificates" && (
+                    <CertificatesScreen />
+                  )}
+                </>
               )}
 
               {/* Bottom Navigation Spacing */}
               <div className="pb-20"></div>
             </div>
 
-            <BottomNav
-              currentScreen={currentScreen}
-              onNavigate={setCurrentScreen}
-            />
+            {currentScreen !== "notifications" && (
+              <BottomNav
+                currentScreen={currentScreen as any}
+                onNavigate={setCurrentScreen as any}
+              />
+            )}
           </>
         )}
       </div>
